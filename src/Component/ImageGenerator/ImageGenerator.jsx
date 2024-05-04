@@ -1,3 +1,4 @@
+
 import { useState, useRef } from "react";
 import default_image from "../../assets/defult_image.jpg";
 import ImageLoader from "../Loader/ImageLoader";
@@ -10,12 +11,12 @@ const ImageGenerator = () => {
       return 0;
     }
     const response = await fetch(
-      "https://api.openai.com/v1/images/generations",
+    `${import.meta.env.REACT_APP_SECRET_URL}`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer sk-proj-GVWEER5jGg0y33AXBIbUT3BlbkFJNegdG2FLqBLCmxKHNBcz`,
+          Authorization: `Bearer ${import.meta.env.REACT_APP_SECRET_CODE}`,
           "User-Agent": "Chrome",
         },
         body: JSON.stringify({
