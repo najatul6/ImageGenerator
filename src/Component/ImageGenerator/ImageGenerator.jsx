@@ -9,11 +9,11 @@ const ImageGenerator = () => {
     if (inputRef.current.value === "") {
       return 0;
     }
-    const response = await fetch(`${import.meta.env.VITE_SECRET_URL}`, {
+    const response = await fetch("https://api.openai.com/v1/images/generations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${import.meta.env.VITE_SECRET_CODE}`,
+        Authorization: `Bearer sk-proj-GVWEER5jGg0y33AXBIbUT3BlbkFJNegdG2FLqBLCmxKHNBcz`,
         "User-Agent": "Chrome",
       },
       body: JSON.stringify({
