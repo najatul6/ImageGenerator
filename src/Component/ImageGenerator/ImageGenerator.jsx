@@ -1,31 +1,27 @@
-
-import { useState, useRef } from "react";
 import default_image from "../../assets/defult_image.jpg";
+import { useState, useRef } from "react";
 import ImageLoader from "../Loader/ImageLoader";
 const ImageGenerator = () => {
   const [image_url, setImage_url] = useState("/");
   let inputRef = useRef(null);
-  const [loading,setLoading]=useState(true)
+  const [loading, setLoading] = useState(true);
   const imageGenerator = async () => {
     if (inputRef.current.value === "") {
       return 0;
     }
-    const response = await fetch(
-    `${import.meta.env.REACT_APP_SECRET_URL}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.REACT_APP_SECRET_CODE}`,
-          "User-Agent": "Chrome",
-        },
-        body: JSON.stringify({
-          prompt: `${inputRef.current.value}`,
-          n: 1,
-          size: "512x512",
-        }),
-      }
-    );
+    const response = await fetch(`${import.meta.env.VITE_SECRET_URL}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${import.meta.env.VITE_SECRET_CODE}`,
+        "User-Agent": "Chrome",
+      },
+      body: JSON.stringify({
+        prompt: `${inputRef.current.value}`,
+        n: 1,
+        size: "512x512",
+      }),
+    });
     let data = await response.json();
     setImage_url(data.data[0].url);
   };
@@ -33,16 +29,16 @@ const ImageGenerator = () => {
     <div className="flex flex-col m-auto items-center mt-5 mb-5 gap-7">
       <div className="flex flex-col">
         <div className="w-[512px] relative">
-          {
-            loading?<img
-            src={image_url === "/" ? default_image : image_url}
-            alt="Default image"
-          />:<div className="absolute top-0 w-full h-full">
-          <ImageLoader />
-        </div>
-          }
-          
-          
+          {loading ? (
+            <img
+              src={image_url === "/" ? default_image : image_url}
+              alt="Default image"
+            />
+          ) : (
+            <div className="absolute top-0 w-full h-full">
+              <ImageLoader />
+            </div>
+          )}
         </div>
       </div>
       <div className="flex w-[1000px] h-[95px] px-2 justify-between items-center rounded-full bg-[#1F3540]">
